@@ -1,0 +1,26 @@
+html, body {
+  background-color: #052555;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.container {
+  background-image: url("./images/bg/kurage02.png");
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+}
+
+.container .img {
+  width: 100px;
+  position: fixed;
+  top: 300px;
+  left: 300px;
+}
+
+.container .img img {
+  width: 100%;
+}
+/*# sourceMappingURL=style.css.map */
