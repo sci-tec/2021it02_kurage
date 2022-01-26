@@ -52,7 +52,25 @@ $(()=>{
         is_goal_y = true;
         }
       });
-      
+    
+    // ボタン表示非表示設定
+    $('.conf').hide();
+    $('#end').hide();
+
+    $('#menu').on('click', () => {
+        $('.conf').show();
+    });
+    $('#close').on('click', () => {
+        $('.conf').hide();
+    })
+    $('#appreciation').on('click', () => {
+        $('.hide').hide();
+        $('#end').show();
+    })
+    $('#end').on('click', () => {
+        $('.hide').show();
+        $('#end').hide();
+    })
 });
 
 //クラゲアニメーション
