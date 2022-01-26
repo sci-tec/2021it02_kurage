@@ -1,3 +1,12 @@
+// import { esayari, esayari2 } from "./js/esa.js"
+import kurage from "./js/kurage.js"
+
+kurage.eat();
+kurage.move();
+
+console.log(kurage.counter);
+
+
 //画像番号の変数
 let counter = 0;
 //画像213枚
