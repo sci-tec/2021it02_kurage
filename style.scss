@@ -1,3 +1,5 @@
+@import "./layers";
+
 html, body {
     background-color: rgb(5, 37, 85);
     margin: 0;
@@ -6,6 +8,7 @@ html, body {
     width: 100%;
 }
 
+ 
 .container {
     background-image: url("./images/bg/kurage02.png");
     background-size: cover;
@@ -20,56 +23,81 @@ html, body {
         img {
             width: 100%;
         }
-    }
-    .button-style{
-        //display: flex;
-        justify-content: space-between;
-        //align-items: center;
-        margin: 0 auto;
-        padding: 0.5em 0.5em;
-        width: 120px;
-        color: #333;
-        font-size: 13px;
-        font-weight: 700;
-        background-image: linear-gradient(170deg, #659de6, #5abab8);
-        border-radius: 50vh;
-        transition: 0.3s;
+    }  
+}
 
-        .button a::after {
-            content: '';
-            width: 5px;
-            height: 5px;
-            border-top: 3px solid #333333;
-            border-right: 3px solid #333333;
-            transform: rotate(45deg);
-        }
+// html, body {
+//     background-color: rgb(5, 37, 85);
+//     margin: 0;
+//     padding: 0;
+//     height: 100%;
+//     width: 100%;
+// }
+
+// .container {
+//     background-image: url("./images/bg/kurage02.png");
+//     background-size: cover;
+//     height: 100%;
+//     width: 100%;
+//     .img {
+//         width: 100px;
+//         // background-color: #0003;
+//         position: fixed;
+//         top: 300px;
+//         left: 300px;
+//         img {
+//             width: 100%;
+//         }
+//     }
+//     .button-style{
+//         //display: flex;
+//         justify-content: space-between;
+//         //align-items: center;
+//         margin: 0 auto;
+//         padding: 0.5em 0.5em;
+//         width: 120px;
+//         color: rgb(255, 255, 255);
+//         font-size: 13px;
+//         font-weight: 700;
+//         background-image: linear-gradient(170deg, #659de6, #5abab8);
+//         border-radius: 50vh;
+//         transition: 0.3s;
+
+//         .button a::after {
+//             content: '';
+//             width: 5px;
+//             height: 5px;
+//             border-top: 3px solid #333333;
+//             border-right: 3px solid #333333;
+//             transform: rotate(45deg);
+//         }
           
-        .button a:hover {
-            text-decoration: none;
-            background-image: linear-gradient(-170deg, #659de6, #5abab8);
-        }
-    }
-    .button{
-        height: 100%;
-        width: 100%;
-        opacity: 0.9;
-        .leftSide{
-            .menu{
-                display: flex;
+//         .button a:hover {
+//             text-decoration: none;
+//             background-image: linear-gradient(-170deg, #659de6, #5abab8);
+//         }
+//     }
+//     .button{
+//         height: 100%;
+//         width: 100%;
+//         opacity: 0.9;
+//         .leftSide{
+//             .menu{
+//                 display: flex;
                 
-                .conf{
-                    display: flex;
-                    flex-direction: column;
-                }
-            }
-        }
-        .rightSide{
-            display: flex;
-            display: inline-flex;
-            justify-content: flex-end;
-            flex-direction: column;
+//                 .conf{
+//                     display: flex;
+//                     flex-direction: column;
+//                 }
+//             }
+//         }
+//         .rightSide{
+//             display: flex;
+//             display: inline-flex;
+//             justify-content: flex-end;
+//             flex-direction: column;
 
             
-        }
-    }
-}
+//         }
+//     }
+// }
