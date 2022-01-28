@@ -1,0 +1,79 @@
+export let kurage= {
+    counter: 0,
+    NUM_IMAGES: 213,
+    kurage_x: 200,
+    kurage_y: 500,
+    sx: 0,
+    sy: 0,
+    goal_y: 200,
+    kaiten:0,
+    kakudo1: 1,
+    kakudo2: 0,
+    kakudo1_2: 0,
+    is_goal_x: false,
+    is_goal_y: false,
+    is_teisi: true,
+    is_click: false,
+    is_push: false,
+    size: 100,
+    MAX_SIZE: 400,
+    
+    //クラゲアニメーシ
+    animate:function(){
+        $("#kurage").attr("src", `images/jf/jf06_2/06_${this.counter}.png`);
+       this.counter = (this.counter+1) % this.NUM_IMAGES;
+    },
+
+    //クラゲを前にすすめる・ゴール位置の設定
+    update: function(){
+        //クラゲを上に移動
+        if(this.is_push&&(this.Math.abs(50 - this.kurage_y) > 30)){
+            sy = ( 50 - this.kurage_y ) / 100;
+            kurage_y += sy;
+        }else if(this.is_teisi&&this.is_push){
+            this.is_goal_x = true;
+            this.is_goal_y = true;
+        }
+        //クラゲが回転停止したら実行
+        if(!this.is_teisi) {
+            if(Math.abs(this.goal_x - this.kurage_x) > 30) {
+                //イーズアウト計算
+                this.sx = ( this.goal_x - this.kurage_x ) / 100;
+                this.kurage_x += this.sx;
+            } else {
+                this.is_goal_x = true;
+            }
+        
+            if(Math.abs(this.goal_y - this.kurage_y) > 30) {
+                //イーズアウト計算
+                this.sy = ( this.goal_y - this.kurage_y ) / 100;
+                this.kurage_y += this.sy;
+            } else {
+                this.is_goal_y = true;
+            }    
+        }
+        //クラゲがゴール位置についたら実行
+        if( this.is_goal_x && this.is_goal_y ) {
+            this.is_push = false;
+            this.is_teisi = true;
+            this.is_goal_x = false;
+            this.is_goal_y = false;
+            //クリックされていなければ実行
+            if(!this.is_click){
+                //ゴール位置設定
+                this.goal_x = Math.random()*300;
+                this.goal_y = Math.random()*500;
+            }else{
+                this.is_click = false;
+            }
+            //現在地からゴール位置の角度計算
+            this.kaiten = Math.atan2( this.goal_y - this.kurage_y, this.goal_x - this.kurage_x );
+            this.kakudo1 = Math.round(this.kaiten * (180 / Math.PI)+90);
+            this.kakudo1<0?this.kakudo1=360+this.kakudo1:"";
+            this.kakudo1_2 = this.kakudo1-this.kakudo2;
+        }
+        //画像アップデート
+         $(".img").css("top", this.kurage_y);
+         $(".img").css("left", this.kurage_x);
+}
+};
