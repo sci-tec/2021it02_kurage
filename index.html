@@ -6,16 +6,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script> -->
     <script type="module" src="app.js"></script>
     <title>Document</title>
 </head>
 <body>
     
-    <div class="container">
-        <button id="push">push</button>
+    <div id="layers">
+        <div id="lBg" class="layer"></div>
+        <div id="lAnime2" class="layer"></div>
+        <div id="lAnime1" class="layer">
+            <div class="container">
+                <div class="img">
+                    <img id="kurage" src="images/kurage/kurage_0.png" alt="" srcset="">    
+                </div>
+            </div>                       
+        </div>
+        <div id="lLight" class="layer"></div>
+        <div id="lUI" class="layer" >
+            <div class="button">
+                <div class="leftSide">
+                    <div class="menu hide">
+                        <div><button id="menu" class="button-style">メニュー</button></div>
+                        <div class="conf">
+                            <button id="nameChange" class="button-style">名前変更</button>
+                            <button id="bgm" class="button-style">BGM</button>
+                            <button id="reset" class="button-style">データリセット</button>
+                            <button id="close" class="button-style">閉じる</button>
+                        </div>
+                    </div>
+                    <button id="appreciation" class="hide button-style">鑑賞モード</button>
+                    <button id="end" class="button-style">終了</button>
+                </div>
+                <div class="rightSide hide">
+                    <button id="food" class="button-style">餌やり</button>
+                    <button id="waterChange" class="button-style">水交換</button>
+                    <button id="light" class="button-style">ライト切り替え</button>
+                </div>
+                <button id="bubble" class="hide button-style">Push</button>
+            </div>
+        </div>
+       
+        
+        
+        
+    </div>
+    
+    <!-- <div class="container">
         <div class="img">
             <img id="kurage" src="images/kurage/kurage_0.png" alt="" srcset="">    
         </div>
-    </div>
+    </div>    -->
+        
+    
 </body>
 </html>
