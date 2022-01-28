@@ -6,12 +6,13 @@ $(()=>{
      setInterval(update, 1000/ 40);
      setInterval(update_s, 1000 / 100);
     
-     $('#push').on('click',function(){
+     $('#bubble').on('click',function(){
         kurage.is_push = true;
         kurage.is_teisi = true;
    });
      //クリックした位置にクラゲを移動
-     $('.container').on('click', function(e) {
+     $('#lUI').on('click', function(e) {
+         console.log("lAnime1");
         if(!kurage.is_push){
             kurage.is_click = true;
         //クリック時のX,Y取得

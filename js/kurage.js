@@ -17,7 +17,7 @@ export let kurage= {
     is_push: false,
     size: 100,
     MAX_SIZE: 400,
-    
+
     //クラゲアニメーシ
     animate:function(){
         $("#kurage").attr("src", `images/jf/jf06_2/06_${this.counter}.png`);
@@ -27,9 +27,9 @@ export let kurage= {
     //クラゲを前にすすめる・ゴール位置の設定
     update: function(){
         //クラゲを上に移動
-        if(this.is_push&&(this.Math.abs(50 - this.kurage_y) > 30)){
-            sy = ( 50 - this.kurage_y ) / 100;
-            kurage_y += sy;
+        if(this.is_push&&(Math.abs(50 - this.kurage_y) > 30)){
+            this.sy = ( 50 - this.kurage_y ) / 100;
+            this.kurage_y += this.sy;
         }else if(this.is_teisi&&this.is_push){
             this.is_goal_x = true;
             this.is_goal_y = true;
