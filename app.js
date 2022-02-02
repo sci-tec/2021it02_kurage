@@ -1,70 +1,75 @@
-// import { esayari, esayari2 } from "./js/esa.js"
-import kurage from "./js/kurage.js"
-
-kurage.eat();
-kurage.move();
-
-console.log(kurage.counter);
-
-
-//画像番号の変数
-let counter = 0;
-//画像213枚
-const NUM_IMAGES = 213;
-//クラゲの現在地
-let kurage_x = 200;
-let kurage_y = 500;
-//イーズアウト変数
-let sx = 0;
-let sy = 0;
-//クラゲの向かいたい位置
-let goal_x = 200;
-let goal_y = 200;
-
-let kaiten;
-let kakudo1 = 1;
-let kakudo2 = 0;
-//（向かいたい角度　-　現在角度）
-let kakudo1_2 = 0;
-
-let is_goal_x = false;
-let is_goal_y = false;
-let is_teisi = true;
-let is_click = false;
-let is_push = false;
-//クラゲ現在のサイズ
-let size = 100;
-//クラゲ最大サイズ
-let MAX_SIZE = 400;
-
+import { kurage } from './js/kurage.js';
+let awa_width = -10;
+let awa_height = 0;
+var f_awa = true;
+//泡の配置
+while(f_awa){
+    let awa_left = (Math.floor(Math.random() * 2))*25;
+    let awa_top =(Math.floor(Math.random() * 4))*20;
+    let awa_size =(Math.floor(Math.random() * (4 - 2)) + 2)*10;
+    awa_width += awa_left;
+        //htlmに追加
+        $('#awa1').append(`<div id="awa" style="width:${awa_size}px;height:${awa_size}px;margin-top:${awa_top+awa_height}px;margin-left: ${awa_width}px;"></div>`);
+        awa_width += (50-awa_left);
+    if(awa_width>innerWidth){
+        awa_height += 80;
+        awa_height > (innerHeight-100)?f_awa=false:"";
+        awa_width = 0; 
+    }
+    console.log("泡数");
+}
 
 
 //ここで実行
 $(()=>{
+     setInterval(date_time, 1000/1);
      setInterval(animate, 1000/ 100);
      setInterval(update, 1000/ 40);
      setInterval(update_s, 1000 / 100);
-    
-     $('#push').on('click',function(){
-         is_push = true;
-         is_teisi = true;
+    //あわクリック
+     $('#bubble').on('click',function(){
+         kurage.is_awa = true;
+         kurage.awa = $("#lUI").css("height").split("px").map(Number)[0];
     });
-     //クリックした位置にクラゲを移動
-     $('.container').on('click', function(e) {
-        if(!is_push){
-        is_click = true;
-        //クリック時のX,Y取得
-        goal_x = e.offsetX;
-        goal_y = e.offsetY;
+    //  餌クリック
+//     $('#food').on('click',function(){
+//         if(!kurage.is_push){
+//             kurage.is_eat = true;
+//             kurage.is_click = true;
+//         //クリック時のX,Y取得
+//         kurage.goal_x = $('#aaa').offset().left;
+//         kurage.goal_y = $('#aaa').offset().top;
         
-        is_goal_x = true;
-        is_goal_y = true;
+//         kurage.is_goal_x = true;
+//         kurage.is_goal_y = true;
+//         }
+        
+//    });
+     //クリックした位置にクラゲを移動
+     $('#lUI').on('click', function(e) {
+        if(!kurage.is_push){
+            kurage.is_click = true;
+        //クリック時のX,Y取得
+        kurage.goal_x = e.offsetX;
+        kurage.goal_y = e.offsetY;
+        
+        kurage.is_goal_x = true;
+        kurage.is_goal_y = true;
         }
       });
      //クリックした時にえさを出す
      $("#food").click(()=>{
         addEsa();
      });
+    //水交換クリックで水質が100%になる
+    $("#waterChange").on('click',()=>localStorage.removeItem("Twater"));
+    //データリセット
+    $("#reset").on('click',()=>localStorage.clear());
+
+    $("#nameChange").on('click',()=>{
+        var nameC = prompt("name");
+        $('.kurage-name').text(nameC);
+    });    
     
     // ボタン表示非表示設定
     $('.conf').hide();
@@ -87,86 +92,54 @@ $(()=>{
 });
 
 //クラゲアニメーション
-let animate = (e)=>{
-    $("#kurage").attr("src", `images/jf/jf06_2/06_${counter}.png`);
-    counter = (counter+1) % NUM_IMAGES;
+let animate = ()=>{
+    kurage.animate();
 }
 
 //クラゲのサイズと向き変更
 let update_s = (e)=>{ 
     //ゴール位置までずっと回転する
-    if(is_push){
-        kurage_y<=200?kakudo2+=2:kakudo2+=5;
-        kakudo2>=360?kakudo2=0:"";
+    if(kurage.is_push){
+        kurage.kurage_y<=200?kurage.kakudo2+=4:kurage.kakudo2+=6;
+        kurage.kakudo2>=360?kurage.kakudo2=0:"";
     }else{
-        if(is_teisi){
-            if((kakudo1_2>=0&&kakudo1_2<=180)||kakudo1_2<=-180){
+        if(kurage.is_teisi){
+            if((kurage.kakudo1_2>=0&&kurage.kakudo1_2<=180)||kurage.kakudo1_2<=-180){
                 //右に回転
-                kakudo2++;
-                kakudo2>=360?kakudo2=0:"";
+                kurage.kakudo2++;
+                kurage.kakudo2>=360?kurage.kakudo2=0:"";
             }else{
                 //左に回転
-                kakudo2==0?kakudo2=360:"";
-                kakudo2--;
+                kurage.kakudo2==0?kurage.kakudo2=360:"";
+                kurage.kakudo2--;
             }
             //現在角度と進みたい角度が一致した場合、is_teisiをtrueにする
-            kakudo1==kakudo2?is_teisi=false:"";
+            kurage.kakudo1==kurage.kakudo2?kurage.is_teisi=false:"";
         }
     }
     //サイズ変更
-    size = size >= MAX_SIZE ? MAX_SIZE : size+0.0001;
+    kurage.size = kurage.size >= kurage.MAX_SIZE ? kurage.MAX_SIZE : kurage.size;
     //画像アップデート
-    $(".img").css("width", size);
-    $('.img').css({transform: "rotate( "+kakudo2+"deg )"});
+    $('.img').css({transform: "rotate( "+kurage.kakudo2+"deg )"});
 }
-
-//クラゲを前にすすめる・ゴール位置の設定
-let update = (e)=>{
-    //クラゲを上に移動
-    if(is_push&&(Math.abs(50 - kurage_y) > 30)){
-        sy = ( 50 - kurage_y ) / 100;
-        kurage_y += sy;
-    }else if(is_teisi&&is_push){
-        is_goal_x = true;
-        is_goal_y = true;
-    }
-    //クラゲが回転停止したら実行
-    if(!is_teisi) {
-        if(Math.abs(goal_x - kurage_x) > 30) {
-            //イーズアウト計算
-            sx = ( goal_x - kurage_x ) / 100;
-            kurage_x += sx;
-        } else {
-            is_goal_x = true;
+//大きさ、満腹度、水質
+let date_time = ()=>{
+    //console.log($("#lUI").css("height"));
+    //現在の時間を取得
+    let time_Now = new Date();
+    let time = `${time_Now.getFullYear()},${time_Now.getMonth() + 1},${time_Now.getDate()},${time_Now.getHours()},${time_Now.getMinutes()},${time_Now.getSeconds()}`;
+    //ローカルストレージが空の場合に時間を保存する関数
+    let date_all = (key)=>{
+        if(!localStorage.getItem(key)){
+            localStorage.setItem(key,time);
         }
-    
-        if(Math.abs(goal_y - kurage_y) > 30) {
-            //イーズアウト計算
-            sy = ( goal_y - kurage_y ) / 100;
-            kurage_y += sy;
-        } else {
-            is_goal_y = true;
-        }    
     }
-    //クラゲがゴール位置についたら実行
-    if( is_goal_x && is_goal_y ) {
-        is_push = false;
-        is_teisi = true;
-        is_goal_x = false;
-        is_goal_y = false;
-        //クリックされていなければ実行
-        if(!is_click){
-            //ゴール位置設定
-            goal_x = Math.random()*300;
-            goal_y = Math.random()*500;
-        }else{
-            is_click = false;
-        }
-        //現在地からゴール位置の角度計算
-        kaiten = Math.atan2( goal_y - kurage_y, goal_x - kurage_x );
-        kakudo1 = Math.round(kaiten * (180 / Math.PI)+90);
-        kakudo1<0?kakudo1=360+kakudo1:"";
-        kakudo1_2 = kakudo1-kakudo2;
+    //ローカルストレージが保存されての、経過時間を取得する関数
+    let elapsed = (key)=>{
+        var s =localStorage.getItem(key).split(",").map(Number);
+        var date1 = new Date(s[0],s[1],s[2],s[3],s[4],s[5]);
+        var date2 = new Date(time_Now.getFullYear(),time_Now.getMonth() + 1,time_Now.getDate(),time_Now.getHours(),time_Now.getMinutes(),time_Now.getSeconds());
+        return (date2 - date1)/1000;
     }
     //画像アップデート
      $(".img").css("top", kurage_y);
@@ -197,4 +170,23 @@ let moveEsa = ()=>{
 let getNewEsa = (x, y)=>{
     let esa = `<div class="esa" style="position: fixed; top:${y}px; left:${x}px;">●</div>`
     return esa;
+    //ローカルストレージ関数実行
+    date_all("Tsize");
+    date_all("Teat");
+    date_all("Twater");
+    //クラゲサイズ変更、大きさ更新
+    $(".img").css("width", kurage.size+(elapsed("Tsize")*0.0013));
+    $('.kurage-size').text((Math.round((kurage.size+(elapsed("Tsize")*0.0013))*1000)/1000)+"mm");
+    //今の満腹度、水質を表示
+    $('.kurage-Satisfaction').text(100-Math.floor(elapsed("Teat")/3456)+"%");
+    $('.kurage-Water').text(100-Math.floor(elapsed("Twater")/6048)+"%");
+    //満腹度か水質が0%になったら,リセットされる
+    if(Math.floor(elapsed("Teat")/3456)>=100||Math.floor(elapsed("Twater")/6048)>=100){
+        localStorage.clear();
+        alert("死にました。");
+    }
+}
+//クラゲを前にすすめる・ゴール位置の設定
+let update = (e)=>{
+    kurage.update();
 }
