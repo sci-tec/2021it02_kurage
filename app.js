@@ -61,6 +61,10 @@ $(()=>{
         is_goal_y = true;
         }
       });
+     //クリックした時にえさを出す
+     $("#food").click(()=>{
+        addEsa();
+     });
     
     // ボタン表示非表示設定
     $('.conf').hide();
@@ -167,4 +171,30 @@ let update = (e)=>{
     //画像アップデート
      $(".img").css("top", kurage_y);
      $(".img").css("left", kurage_x);
+     //えさが落ちる関数
+     moveEsa();
+}
+
+let esaArr = [];
+
+let addEsa = ()=>{
+    if(esaArr.length<5){
+        let esaX = Math.random()*1500;
+        let esaY = Math.random()*10;
+        let esaJson = {"x": esaX, "y": esaY}
+        esaArr.push(esaJson);
+    }
+}
+
+let moveEsa = ()=>{
+    $("#esaarea").html("");
+    for(let i=0; i<esaArr.length; i++) {
+        esaArr[i].y++;
+        $("#esaarea").append(getNewEsa(esaArr[i].x, esaArr[i].y));
+    }
+}
+
+let getNewEsa = (x, y)=>{
+    let esa = `<div class="esa" style="position: fixed; top:${y}px; left:${x}px;">●</div>`
+    return esa;
 }
