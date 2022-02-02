@@ -1,8 +1,8 @@
 export let kurage= {
     counter: 0,
     NUM_IMAGES: 213,
-    kurage_x: 200,
-    kurage_y: 500,
+    kurage_x: innerWidth/2,
+    kurage_y: innerHeight/2,
     sx: 0,
     sy: 0,
     goal_y: 200,
@@ -10,25 +10,36 @@ export let kurage= {
     kakudo1: 1,
     kakudo2: 0,
     kakudo1_2: 0,
+    awa: $("#lUI").css("height").split("px").map(Number)[0],
     is_goal_x: false,
     is_goal_y: false,
     is_teisi: true,
     is_click: false,
     is_push: false,
+    is_awa: false,
+    is_eat: false,
     size: 100,
     MAX_SIZE: 400,
+    
 
     //クラゲアニメーシ
-    animate:function(){
+    animate: function(){
         $("#kurage").attr("src", `images/jf/jf06_2/06_${this.counter}.png`);
        this.counter = (this.counter+1) % this.NUM_IMAGES;
+       //泡アニメーション
+       this.awa>-innerHeight&&this.is_awa?this.awa-=7:this.is_awa=false;
+        if(this.kurage_y>=this.awa&&this.is_awa){
+            this.is_push = true;
+            this.is_teisi = true;
+        }
+        $("#awa1").css("margin-top",this.awa);
     },
 
     //クラゲを前にすすめる・ゴール位置の設定
     update: function(){
         //クラゲを上に移動
         if(this.is_push&&(Math.abs(50 - this.kurage_y) > 30)){
-            this.sy = ( 50 - this.kurage_y ) / 100;
+            this.sy = ( 50 - this.kurage_y ) / 50;
             this.kurage_y += this.sy;
         }else if(this.is_teisi&&this.is_push){
             this.is_goal_x = true;
@@ -51,6 +62,12 @@ export let kurage= {
             } else {
                 this.is_goal_y = true;
             }    
+            // if(this.is_eat&&(($('#aaa').offset().left-15)<=this.kurage_x&&this.kurage_x<=($('#aaa').offset().left+15))&&(($('#aaa').offset().top-30)<=this.kurage_y&&this.kurage_y<=($('#aaa').offset().top+15))){
+            //     $('#aaa').remove();
+            //     this.is_eat = false;
+            //     this.is_goal_x = true;
+            //     this.is_goal_y = true;
+            // }
         }
         //クラゲがゴール位置についたら実行
         if( this.is_goal_x && this.is_goal_y ) {
@@ -61,8 +78,8 @@ export let kurage= {
             //クリックされていなければ実行
             if(!this.is_click){
                 //ゴール位置設定
-                this.goal_x = Math.random()*300;
-                this.goal_y = Math.random()*500;
+                this.goal_x = Math.random()*(innerWidth-this.size);
+                this.goal_y = Math.random()*(innerHeight-this.size);
             }else{
                 this.is_click = false;
             }
