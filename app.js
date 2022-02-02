@@ -19,6 +19,7 @@ while(f_awa){
     console.log("泡数");
 }
 
+
 //ここで実行
 $(()=>{
      setInterval(date_time, 1000/1);
