@@ -85,6 +85,9 @@ $(()=>{
         $('.hide').show();
         $('#end').hide();
     })
+    $("#food").click(()=>{
+        addEsa();
+    })
 });
 
 //クラゲアニメーション
@@ -158,4 +161,29 @@ let date_time = ()=>{
 //クラゲを前にすすめる・ゴール位置の設定
 let update = (e)=>{
     kurage.update();
+    moveEsa();
+}
+
+let esaArr = [];
+
+let addEsa = ()=>{
+    if(esaArr.length<5){
+        let esaX = Math.random()*1500;
+        let esaY = Math.random()*10;
+        let esaJson = {"x": esaX, "y": esaY}
+        esaArr.push(esaJson);
+    }
+}
+
+let moveEsa = ()=>{
+    $("#esaarea").html("");
+    for(let i=0; i<esaArr.length; i++) {
+        esaArr[i].y++;
+        $("#esaarea").append(getNewEsa(esaArr[i].x, esaArr[i].y));
+    }
+}
+
+let getNewEsa = (x, y)=>{
+    let esa = `<div class="esa" style="position: fixed; top:${y}px; left:${x}px;">●</div>`
+    return esa;
 }
