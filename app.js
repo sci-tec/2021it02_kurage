@@ -2,6 +2,8 @@ import { kurage } from './js/kurage.js';
 let awa_width = -10;
 let awa_height = 0;
 var f_awa = true;
+let bgm = new Audio('bgm/01.mp3');
+let bgm_num = 1;
 //泡の配置
 while(f_awa){
     let awa_left = (Math.floor(Math.random() * 2))*25;
@@ -26,6 +28,23 @@ $(()=>{
      setInterval(animate, 1000/ 100);
      setInterval(update, 1000/ 40);
      setInterval(update_s, 1000 / 100);
+    
+    // bgm再生
+    bgm.play();
+    bgm.loop = true;
+    // bgm切り替え
+    $('#bgm').on('click', () => {
+        if(bgm_num < 5){
+            bgm_num++;
+        } else {
+            bgm_num = 1;
+        }
+        bgm.pause();
+        bgm = new Audio(`bgm/0${bgm_num}.mp3`);      
+        bgm.play();
+        console.log(bgm_num);
+    });
+
     //あわクリック
      $('#bubble').on('click',function(){
          kurage.is_awa = true;
