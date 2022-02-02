@@ -56,11 +56,7 @@ $(()=>{
         kurage.is_goal_x = true;
         kurage.is_goal_y = true;
         }
-      });
-     //クリックした時にえさを出す
-     $("#food").click(()=>{
-        addEsa();
-     });
+    });
     //水交換クリックで水質が100%になる
     $("#waterChange").on('click',()=>localStorage.removeItem("Twater"));
     //データリセット
@@ -88,6 +84,9 @@ $(()=>{
     $('#end').on('click', () => {
         $('.hide').show();
         $('#end').hide();
+    })
+    $("#food").click(()=>{
+        addEsa();
     })
 });
 
@@ -141,11 +140,28 @@ let date_time = ()=>{
         var date2 = new Date(time_Now.getFullYear(),time_Now.getMonth() + 1,time_Now.getDate(),time_Now.getHours(),time_Now.getMinutes(),time_Now.getSeconds());
         return (date2 - date1)/1000;
     }
-    //画像アップデート
-     $(".img").css("top", kurage_y);
-     $(".img").css("left", kurage_x);
-     //えさが落ちる関数
-     moveEsa();
+    //console.log(elapsed("Tsize"));
+    //ローカルストレージ関数実行
+    date_all("Tsize");
+    date_all("Teat");
+    date_all("Twater");
+    //クラゲサイズ変更、大きさ更新
+    $(".img").css("width", kurage.size+(elapsed("Tsize")*0.0013));
+    $('.kurage-size').text((Math.round((kurage.size+(elapsed("Tsize")*0.0013))*1000)/1000)+"mm");
+    $('.kurage-date').text(Math.ceil(elapsed("Tsize")/86400)+"日目");
+    //今の満腹度、水質を表示
+    $('.kurage-Satisfaction').text(100-Math.floor(elapsed("Teat")/3456)+"%");
+    $('.kurage-Water').text(100-Math.floor(elapsed("Twater")/6048)+"%");
+    //満腹度か水質が0%になったら,リセットされる
+    if(Math.floor(elapsed("Teat")/3456)>=100||Math.floor(elapsed("Twater")/6048)>=100){
+        localStorage.clear();
+        alert("死にました。");
+    }
+}
+//クラゲを前にすすめる・ゴール位置の設定
+let update = (e)=>{
+    kurage.update();
+    moveEsa();
 }
 
 let esaArr = [];
@@ -170,23 +186,4 @@ let moveEsa = ()=>{
 let getNewEsa = (x, y)=>{
     let esa = `<div class="esa" style="position: fixed; top:${y}px; left:${x}px;">●</div>`
     return esa;
-    //ローカルストレージ関数実行
-    date_all("Tsize");
-    date_all("Teat");
-    date_all("Twater");
-    //クラゲサイズ変更、大きさ更新
-    $(".img").css("width", kurage.size+(elapsed("Tsize")*0.0013));
-    $('.kurage-size').text((Math.round((kurage.size+(elapsed("Tsize")*0.0013))*1000)/1000)+"mm");
-    //今の満腹度、水質を表示
-    $('.kurage-Satisfaction').text(100-Math.floor(elapsed("Teat")/3456)+"%");
-    $('.kurage-Water').text(100-Math.floor(elapsed("Twater")/6048)+"%");
-    //満腹度か水質が0%になったら,リセットされる
-    if(Math.floor(elapsed("Teat")/3456)>=100||Math.floor(elapsed("Twater")/6048)>=100){
-        localStorage.clear();
-        alert("死にました。");
-    }
-}
-//クラゲを前にすすめる・ゴール位置の設定
-let update = (e)=>{
-    kurage.update();
 }

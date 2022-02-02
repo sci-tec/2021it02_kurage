@@ -127,8 +127,14 @@ html, body {
 .container .img img {
   width: 100%;
 }
-/*# sourceMappingURL=style.css.map */
-.kurage-infos{
+
+.container #esaarea .esa {
+  color: #fff;
+  font-size: 25px;
+  line-height: 1em;
+}
+
+.kurage-infos {
   position: absolute;
   margin-top: 10px;
   margin-left: 300px;
@@ -137,39 +143,47 @@ html, body {
   font-weight: bold;
   color: #fff;
 }
-.kurage-info{
+
+.kurage-info {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
 }
-#awa{
+
+#awa {
   position: fixed;
   width: 40px;
   height: 40px;
-  
   margin-left: 200px;
   background-color: transparent;
   border-radius: 50%;
   pointer-events: none;
-  box-shadow: inset 0 0 5px rgb(255, 255, 255);
+  -webkit-box-shadow: inset 0 0 5px white;
+          box-shadow: inset 0 0 5px white;
 }
+
 #awa::before {
   content: "";
   position: absolute;
   width: 100%;
   height: 100%;
-  transform: scale(0.25) translate(-70%, -70%);
-  background: radial-gradient(rgb(255, 255, 255), transparent);
+  -webkit-transform: scale(0.25) translate(-70%, -70%);
+          transform: scale(0.25) translate(-70%, -70%);
+  background: radial-gradient(white, transparent);
   border-radius: 50%;
 }
-#awa1{
+
+#awa1 {
   position: fixed;
   margin-top: 712px;
 }
-#aaa{
+
+#aaa {
   position: fixed;
   width: 100px;
   height: 100px;
   margin-top: 123px;
   margin-left: 100px;
   background-color: azure;
-  
 }
+/*# sourceMappingURL=style.css.map */
