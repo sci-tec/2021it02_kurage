@@ -16,7 +16,7 @@ while(f_awa){
         awa_height > (innerHeight-100)?f_awa=false:"";
         awa_width = 0; 
     }
-    console.log("泡数");
+    // console.log("泡数");
 }
 
 
@@ -26,30 +26,34 @@ $(()=>{
      setInterval(animate, 1000/ 100);
      setInterval(update, 1000/ 40);
      setInterval(update_s, 1000 / 100);
+     
     //あわクリック
      $('#bubble').on('click',function(){
          kurage.is_awa = true;
          kurage.awa = $("#lUI").css("height").split("px").map(Number)[0];
     });
-    //  餌クリック
-//     $('#food').on('click',function(){
-//         if(!kurage.is_push){
-//             kurage.is_eat = true;
-//             kurage.is_click = true;
-//         //クリック時のX,Y取得
-//         kurage.goal_x = $('#aaa').offset().left;
-//         kurage.goal_y = $('#aaa').offset().top;
+    // //  餌クリック
+    // $('#food').on('click',function(){
+    //     if(!kurage.is_push){
+    //         kurage.is_eat = true;
+    //         kurage.is_click = true;
+    //     //クリック時のX,Y取得
+    //     kurage.goal_x = $('#ab').offset().left;
+    //     kurage.goal_y = $('#ab').offset().top;
         
-//         kurage.is_goal_x = true;
-//         kurage.is_goal_y = true;
-//         }
+    //     kurage.is_goal_x = true;
+    //     kurage.is_goal_y = true;
+    //     }
         
 //    });
      //クリックした位置にクラゲを移動
      $('#lUI').on('click', function(e) {
+        $('#tat').append(`<div id="aaa"style="margin-top:${e.offsetY-50}px;margin-left: ${e.offsetX-50}px;"></div>`);
+        kurage.is_hamon=true;
         if(!kurage.is_push){
             kurage.is_click = true;
         //クリック時のX,Y取得
+        // console.log(e.offsetX,e.offsetY);
         kurage.goal_x = e.offsetX;
         kurage.goal_y = e.offsetY;
         
@@ -116,7 +120,7 @@ let update_s = (e)=>{
     //サイズ変更
     kurage.size = kurage.size >= kurage.MAX_SIZE ? kurage.MAX_SIZE : kurage.size;
     //画像アップデート
-    $('.img').css({transform: "rotate( "+kurage.kakudo2+"deg )"});
+    $('#kurage').css({transform: "rotate( "+kurage.kakudo2+"deg )"});
 }
 //大きさ、満腹度、水質
 let date_time = ()=>{
@@ -143,10 +147,12 @@ let date_time = ()=>{
     date_all("Teat");
     date_all("Twater");
     //クラゲサイズ変更、大きさ更新
-    $(".img").css("width", kurage.size+(elapsed("Tsize")*0.0013));
+    $("#kurage").css("width", kurage.size+(elapsed("Tsize")*0.0013));
     $('.kurage-size').text((Math.round((kurage.size+(elapsed("Tsize")*0.0013))*1000)/1000)+"mm");
     $('.kurage-date').text(Math.ceil(elapsed("Tsize")/86400)+"日目");
     //今の満腹度、水質を表示
+    $("suisitu").css("opacity",1-((100-Math.floor(elapsed("Teat")/3456))/100));
+    //console.log(1-((100-Math.floor(elapsed("Teat")/3456))/100));
     $('.kurage-Satisfaction').text(100-Math.floor(elapsed("Teat")/3456)+"%");
     $('.kurage-Water').text(100-Math.floor(elapsed("Twater")/6048)+"%");
     //満腹度か水質が0%になったら,リセットされる
