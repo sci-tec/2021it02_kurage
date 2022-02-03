@@ -2,6 +2,8 @@ import { kurage } from './js/kurage.js';
 let awa_width = -10;
 let awa_height = 0;
 var f_awa = true;
+let bgm = new Audio('bgm/01.mp3');
+let bgm_num = 1;
 //泡の配置
 while(f_awa){
     let awa_left = (Math.floor(Math.random() * 2))*25;
@@ -26,7 +28,26 @@ $(()=>{
      setInterval(animate, 1000/ 100);
      setInterval(update, 1000/ 40);
      setInterval(update_s, 1000 / 100);
-     
+
+
+    
+    // bgm再生
+    bgm.play();
+    bgm.loop = true;
+    // bgm切り替え
+    $('#bgm').on('click', () => {
+        if(bgm_num < 5){
+            bgm_num++;
+        } else {
+            bgm_num = 1;
+        }
+        bgm.pause();
+        bgm = new Audio(`bgm/0${bgm_num}.mp3`);      
+        bgm.play();
+        console.log(bgm_num);
+    });
+
+
     //あわクリック
      $('#bubble').on('click',function(){
          kurage.is_awa = true;
@@ -88,6 +109,9 @@ $(()=>{
     $('#end').on('click', () => {
         $('.hide').show();
         $('#end').hide();
+    })
+    $("#food").click(()=>{
+        addEsa();
     })
 });
 
@@ -164,4 +188,29 @@ let date_time = ()=>{
 //クラゲを前にすすめる・ゴール位置の設定
 let update = (e)=>{
     kurage.update();
+    moveEsa();
+}
+
+let esaArr = [];
+
+let addEsa = ()=>{
+    if(esaArr.length<5){
+        let esaX = Math.random()*1500;
+        let esaY = Math.random()*10;
+        let esaJson = {"x": esaX, "y": esaY}
+        esaArr.push(esaJson);
+    }
+}
+
+let moveEsa = ()=>{
+    $("#esaarea").html("");
+    for(let i=0; i<esaArr.length; i++) {
+        esaArr[i].y++;
+        $("#esaarea").append(getNewEsa(esaArr[i].x, esaArr[i].y));
+    }
+}
+
+let getNewEsa = (x, y)=>{
+    let esa = `<div class="esa" style="position: fixed; top:${y}px; left:${x}px;">●</div>`
+    return esa;
 }

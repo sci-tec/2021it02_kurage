@@ -160,6 +160,13 @@ html, body {
   width: 100%;
 }
 
+
+.container #esaarea .esa {
+  color: #fff;
+  font-size: 25px;
+  line-height: 1em;
+}
+
 .kurage-infos {
   position: absolute;
   margin-top: 10px;
