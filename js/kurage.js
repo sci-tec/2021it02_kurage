@@ -11,6 +11,7 @@ export let kurage= {
     kakudo2: 0,
     kakudo1_2: 0,
     awa: $("#lUI").css("height").split("px").map(Number)[0],
+    hamon: 0,
     is_goal_x: false,
     is_goal_y: false,
     is_teisi: true,
@@ -18,6 +19,7 @@ export let kurage= {
     is_push: false,
     is_awa: false,
     is_eat: false,
+    is_hamon: false,
     size: 100,
     MAX_SIZE: 400,
     
@@ -31,6 +33,17 @@ export let kurage= {
         if(this.kurage_y>=this.awa&&this.is_awa){
             this.is_push = true;
             this.is_teisi = true;
+        }
+        if(this.is_hamon){
+            this.hamon++;
+            $("#aaa").css({width:this.hamon,height:this.hamon,opacity:(50-this.hamon)/50});
+            $("#aaa").css("margin-top",this.goal_y-(this.hamon/2));
+            $("#aaa").css("margin-left",this.goal_x-(this.hamon/2));
+            if(this.hamon >= 50){
+                this.hamon = 0;
+                this.is_hamon = false;
+                $("#aaa").remove();
+            }
         }
         $("#awa1").css("margin-top",this.awa);
     },
@@ -62,8 +75,8 @@ export let kurage= {
             } else {
                 this.is_goal_y = true;
             }    
-            // if(this.is_eat&&(($('#aaa').offset().left-15)<=this.kurage_x&&this.kurage_x<=($('#aaa').offset().left+15))&&(($('#aaa').offset().top-30)<=this.kurage_y&&this.kurage_y<=($('#aaa').offset().top+15))){
-            //     $('#aaa').remove();
+            // if(this.is_eat&&(($('#ab').offset().left-30)<=this.kurage_x&&this.kurage_x<=($('#ab').offset().left+30))&&(($('#ab').offset().top-30)<=this.kurage_y&&this.kurage_y<=($('#ab').offset().top+30))){
+            //     $('#ab').remove();
             //     this.is_eat = false;
             //     this.is_goal_x = true;
             //     this.is_goal_y = true;
@@ -71,6 +84,7 @@ export let kurage= {
         }
         //クラゲがゴール位置についたら実行
         if( this.is_goal_x && this.is_goal_y ) {
+            // console.log(this.kurage_x,this.goal_y);
             this.is_push = false;
             this.is_teisi = true;
             this.is_goal_x = false;
@@ -81,6 +95,7 @@ export let kurage= {
                 this.goal_x = Math.random()*(innerWidth-this.size);
                 this.goal_y = Math.random()*(innerHeight-this.size);
             }else{
+                
                 this.is_click = false;
             }
             //現在地からゴール位置の角度計算
@@ -90,7 +105,7 @@ export let kurage= {
             this.kakudo1_2 = this.kakudo1-this.kakudo2;
         }
         //画像アップデート
-         $(".img").css("top", this.kurage_y);
-         $(".img").css("left", this.kurage_x);
+         $("#kurage").css("top", this.kurage_y);
+         $("#kurage").css("left", this.kurage_x);
 }
 };

@@ -117,15 +117,16 @@
   width: 100%;
 }
 
-#layers #lAnime1 .container .img {
-  width: 100px;
+/* #layers #lAnime1 .container .img {
+  width: 100px; 
   position: fixed;
   top: 300px;
   left: 300px;
-}
-
+} */
+/* 作業中 */
 #layers #lAnime1 .container .img img {
   width: 100%;
+  position: fixed;
 }
 
 #layers #lBG {
@@ -213,11 +214,14 @@ html, body {
 #aaa{
   position: absolute;
   border-radius: 50%;
-
-  width: 100px;
-  height: 100px;
-  margin-top: 123px;
-  margin-left: 100px;
-  background-color: azure;
+  background-image:  radial-gradient( rgba(255, 255, 255, 0), rgb(255, 255, 255) );
 }
 /*# sourceMappingURL=style.css.map */
+#ab{
+  width: 20px;
+  height: 20px;
+  position: fixed;
+  background-color: #fff;
+  margin-left: 300px;
+  margin-top: 200px;
+}
