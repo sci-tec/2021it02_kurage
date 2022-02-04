@@ -144,7 +144,7 @@ let update_s = (e)=>{
     //サイズ変更
     kurage.size = kurage.size >= kurage.MAX_SIZE ? kurage.MAX_SIZE : kurage.size;
     //画像アップデート
-    $('#kurage').css({transform: "rotate( "+kurage.kakudo2+"deg )"});
+    $('.img').css({transform: "rotate( "+kurage.kakudo2+"deg )"});
 }
 //大きさ、満腹度、水質
 let date_time = ()=>{
@@ -171,7 +171,7 @@ let date_time = ()=>{
     date_all("Teat");
     date_all("Twater");
     //クラゲサイズ変更、大きさ更新
-    $("#kurage").css("width", kurage.size+(elapsed("Tsize")*0.0013));
+    $(".img").css("width", kurage.size+(elapsed("Tsize")*0.0013));
     $('.kurage-size').text((Math.round((kurage.size+(elapsed("Tsize")*0.0013))*1000)/1000)+"mm");
     $('.kurage-date').text(Math.ceil(elapsed("Tsize")/86400)+"日目");
     //今の満腹度、水質を表示

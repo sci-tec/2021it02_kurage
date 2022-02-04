@@ -105,7 +105,7 @@ export let kurage= {
             this.kakudo1_2 = this.kakudo1-this.kakudo2;
         }
         //画像アップデート
-         $("#kurage").css("top", this.kurage_y);
-         $("#kurage").css("left", this.kurage_x);
+         $(".img").css("top", this.kurage_y);
+         $(".img").css("left", this.kurage_x);
 }
 };
