@@ -194,8 +194,8 @@ let update = (e)=>{
 let esaArr = [];
 
 let addEsa = ()=>{
-    if(esaArr.length<5){
-        let esaX = Math.random()*1500;
+    if(esaArr.length<15){
+        let esaX = Math.random()*window.innerWidth;
         let esaY = Math.random()*10;
         let esaJson = {"x": esaX, "y": esaY}
         esaArr.push(esaJson);
