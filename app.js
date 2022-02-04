@@ -223,12 +223,16 @@ let addEsa = ()=>{
 let moveEsa = ()=>{
     $("#esaarea").html("");
     for(let i=0; i<esaArr.length; i++) {
-        esaArr[i].y++;
+        esaArr[i].y+=0.3;
         $("#esaarea").append(getNewEsa(i,esaArr[i].x, esaArr[i].y));
     }
 }
 
 let getNewEsa = (i,x, y)=>{
-    let esa = `<div class="esa${i}" style="position: fixed; top:${y}px; left:${x}px;">●</div>`
+    let esa = `<div class="esa${i} esa" style="position: fixed; top:${y}px; left:${x}px;"></div>`
     return esa;
+}
+
+let eatEsa = (id) => {
+    esaArr.splice(id, 1);
 }
