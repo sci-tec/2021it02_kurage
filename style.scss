@@ -18,12 +18,19 @@ html, body {
         width: 100px;
         // background-color: #0003;
         position: fixed;
-        top: 300px;
-        left: 300px;
+        
         img {
             width: 100%;
+            
         }
-    }  
+    }
+    #esaarea {
+        .esa {
+            color: #fff;
+            font-size: 25px;
+            line-height:1em;
+        }
+    } 
 }
 
 // html, body {
@@ -138,7 +145,8 @@ html, body {
     margin-top: 712px;
   }
   #aaa{
-    position: fixed;
+    position: absolute;
+    border-radius: 50%;
     width: 100px;
     height: 100px;
     margin-top: 123px;
