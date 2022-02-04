@@ -29,7 +29,6 @@ $(()=>{
      setInterval(update, 1000/ 40);
      setInterval(update_s, 1000 / 100);
 
-
     
     // bgm再生
     bgm.play();
@@ -67,21 +66,7 @@ $(()=>{
     //     }
         
 //    });
-     //クリックした位置にクラゲを移動
-     $('#lUI').on('click', function(e) {
-        $('#tat').append(`<div id="aaa"style="margin-top:${e.offsetY-50}px;margin-left: ${e.offsetX-50}px;"></div>`);
-        kurage.is_hamon=true;
-        if(!kurage.is_push){
-            kurage.is_click = true;
-        //クリック時のX,Y取得
-        // console.log(e.offsetX,e.offsetY);
-        kurage.goal_x = e.offsetX;
-        kurage.goal_y = e.offsetY;
-        
-        kurage.is_goal_x = true;
-        kurage.is_goal_y = true;
-        }
-    });
+     
     //水交換クリックで水質が100%になる
     $("#waterChange").on('click',()=>localStorage.removeItem("Twater"));
     //データリセット
@@ -112,7 +97,26 @@ $(()=>{
     })
     $("#food").click(()=>{
         addEsa();
+        kurage.is_eat = true;
     })
+    //クリックした位置にクラゲを移動
+    $('#lUI').on('click', function(e) {
+        if(!kurage.is_eat){
+           $('#tat').append(`<div id="hamon"></div>`);
+           kurage.is_hamon=true;
+        }
+       
+       if(!kurage.is_push&&!kurage.is_eat){
+           kurage.is_click = true;
+       //クリック時のX,Y取得
+       // console.log(e.offsetX,e.offsetY);
+       kurage.goal_x = e.offsetX;
+       kurage.goal_y = e.offsetY;
+       
+       kurage.is_goal_x = true;
+       kurage.is_goal_y = true;
+       }
+   });
 });
 
 //クラゲアニメーション
@@ -130,12 +134,12 @@ let update_s = (e)=>{
         if(kurage.is_teisi){
             if((kurage.kakudo1_2>=0&&kurage.kakudo1_2<=180)||kurage.kakudo1_2<=-180){
                 //右に回転
-                kurage.kakudo2++;
+                kurage.is_eat?kurage.kakudo2+=0.2:kurage.kakudo2++;
                 kurage.kakudo2>=360?kurage.kakudo2=0:"";
             }else{
                 //左に回転
-                kurage.kakudo2==0?kurage.kakudo2=360:"";
-                kurage.kakudo2--;
+                kurage.kakudo2<=0?kurage.kakudo2=360:"";
+                kurage.is_eat?kurage.kakudo2-=0.2:kurage.kakudo2--;
             }
             //現在角度と進みたい角度が一致した場合、is_teisiをtrueにする
             kurage.kakudo1==kurage.kakudo2?kurage.is_teisi=false:"";
@@ -189,6 +193,13 @@ let date_time = ()=>{
 let update = (e)=>{
     kurage.update();
     moveEsa();
+    if(kurage.is_eat){
+        kurage.is_click = true;
+        kurage.goal_x = $(".esa0").offset().left;
+        kurage.goal_y = $(".esa0").offset().top;
+        kurage.is_goal_x = true;
+        kurage.is_goal_y = true;
+    }
 }
 
 let esaArr = [];
@@ -206,11 +217,11 @@ let moveEsa = ()=>{
     $("#esaarea").html("");
     for(let i=0; i<esaArr.length; i++) {
         esaArr[i].y++;
-        $("#esaarea").append(getNewEsa(esaArr[i].x, esaArr[i].y));
+        $("#esaarea").append(getNewEsa(i,esaArr[i].x, esaArr[i].y));
     }
 }
 
-let getNewEsa = (x, y)=>{
-    let esa = `<div class="esa" style="position: fixed; top:${y}px; left:${x}px;">●</div>`
+let getNewEsa = (i,x, y)=>{
+    let esa = `<div class="esa${i}" style="position: fixed; top:${y}px; left:${x}px;">●</div>`
     return esa;
 }
