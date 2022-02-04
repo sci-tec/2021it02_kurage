@@ -182,6 +182,13 @@ let date_time = ()=>{
     $("suisitu").css("opacity",1-((100-Math.floor(elapsed("Teat")/3456))/100));
     //console.log(1-((100-Math.floor(elapsed("Teat")/3456))/100));
     $('.kurage-Satisfaction').text(100-Math.floor(elapsed("Teat")/3456)+"%");
+    let suishitu = (1-((100-Math.floor(elapsed("Twater")/6048))/100));
+    if(suishitu<0.8){
+        $('#lLight').css({"opacity" : 1-((100-Math.floor(elapsed("Twater")/6048))/100)});
+    } else {
+        $('#lLight').css({"opacity" : 0.8});
+    }
+    console.log(suishitu);
     $('.kurage-Water').text(100-Math.floor(elapsed("Twater")/6048)+"%");
     //満腹度か水質が0%になったら,リセットされる
     if(Math.floor(elapsed("Teat")/3456)>=100||Math.floor(elapsed("Twater")/6048)>=100){
