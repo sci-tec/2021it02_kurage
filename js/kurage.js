@@ -36,13 +36,13 @@ export let kurage= {
         }
         if(this.is_hamon){
             this.hamon++;
-            $("#aaa").css({width:this.hamon,height:this.hamon,opacity:(50-this.hamon)/50});
-            $("#aaa").css("margin-top",this.goal_y-(this.hamon/2));
-            $("#aaa").css("margin-left",this.goal_x-(this.hamon/2));
+            $("#hamon").css({width:this.hamon,height:this.hamon,opacity:(50-this.hamon)/50});
+            $("#hamon").css("margin-top",this.goal_y-(this.hamon/2));
+            $("#hamon").css("margin-left",this.goal_x-(this.hamon/2));
             if(this.hamon >= 50){
                 this.hamon = 0;
                 this.is_hamon = false;
-                $("#aaa").remove();
+                $("#hamon").remove();
             }
         }
         $("#awa1").css("margin-top",this.awa);
@@ -59,10 +59,11 @@ export let kurage= {
             this.is_goal_y = true;
         }
         //クラゲが回転停止したら実行
-        if(!this.is_teisi) {
+        if(!this.is_teisi || this.is_eat) {
             if(Math.abs(this.goal_x - this.kurage_x) > 30) {
                 //イーズアウト計算
                 this.sx = ( this.goal_x - this.kurage_x ) / 100;
+                if(this.is_eat){this.sx = ( this.goal_x - this.kurage_x ) / 100;}
                 this.kurage_x += this.sx;
             } else {
                 this.is_goal_x = true;
@@ -70,7 +71,8 @@ export let kurage= {
         
             if(Math.abs(this.goal_y - this.kurage_y) > 30) {
                 //イーズアウト計算
-                this.sy = ( this.goal_y - this.kurage_y ) / 100;
+                this.sy = ( this.goal_y - this.kurage_y ) / 70;
+                if(this.is_eat){this.sy = ( this.goal_y - this.kurage_y ) / 100;}
                 this.kurage_y += this.sy;
             } else {
                 this.is_goal_y = true;
@@ -95,7 +97,6 @@ export let kurage= {
                 this.goal_x = Math.random()*(innerWidth-this.size);
                 this.goal_y = Math.random()*(innerHeight-this.size);
             }else{
-                
                 this.is_click = false;
             }
             //現在地からゴール位置の角度計算
