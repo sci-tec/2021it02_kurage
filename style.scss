@@ -8,10 +8,15 @@ html, body {
     width: 100%;
 }
 
- 
-.container {
+#lBg {
     background-image: url("./images/bg/bg_02.png");
     background-size: cover;
+    height: 100%;
+    width: 100%;
+}
+
+ 
+.container {
     height: 100%;
     width: 100%;
     .img {
@@ -157,4 +162,19 @@ html, body {
     margin-left: 100px;
     background-color: azure;
     
+  }
+
+  #hamon{
+    position: absolute;
+    border-radius: 50%;
+    background-image:  radial-gradient( rgba(255, 255, 255, 0), rgb(255, 255, 255) );
+  }
+  /*# sourceMappingURL=style.css.map */
+  #ab{
+    width: 20px;
+    height: 20px;
+    position: fixed;
+    background-color: #fff;
+    margin-left: 300px;
+    margin-top: 200px;
   }

@@ -25,7 +25,7 @@ while(f_awa){
 //ここで実行
 $(()=>{
      setInterval(date_time, 1000/1);
-     setInterval(animate, 1000/ 100);
+     setInterval(animate, 1000/ 40);
      setInterval(update, 1000/ 40);
      setInterval(update_s, 1000 / 100);
 
@@ -184,9 +184,9 @@ let date_time = ()=>{
     $('.kurage-Satisfaction').text(100-Math.floor(elapsed("Teat")/3456)+"%");
     let suishitu = (1-((100-Math.floor(elapsed("Twater")/6048))/100));
     if(suishitu<0.8){
-        $('#lLight').css({"opacity" : 1-((100-Math.floor(elapsed("Twater")/6048))/100)});
+        $('#lSuishitu').css({"opacity" : 1-((100-Math.floor(elapsed("Twater")/6048))/100)});
     } else {
-        $('#lLight').css({"opacity" : 0.8});
+        $('#lSuishitu').css({"opacity" : 0.8});
     }
     console.log(suishitu);
     $('.kurage-Water').text(100-Math.floor(elapsed("Twater")/6048)+"%");
