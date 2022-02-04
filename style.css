@@ -125,14 +125,14 @@
 }
 
 #layers #lAnime1 .container .img {
+  width: 100px;
   position: fixed;
-  transform-origin:left top;
-} 
-/* 作業中 */
+  top: 300px;
+  left: 300px;
+}
+
 #layers #lAnime1 .container .img img {
   width: 100%;
-  margin-top: -50%;
-  margin-left: -50%;
 }
 
 #layers #lBG {
@@ -158,19 +158,20 @@ html, body {
 .container .img {
   width: 100px;
   position: fixed;
-  top: 300px;
-  left: 300px;
 }
 
 .container .img img {
   width: 100%;
 }
 
-
 .container #esaarea .esa {
   color: #fff;
   font-size: 25px;
   line-height: 1em;
+  background-image: url("/images/esa/esa3.png");
+  background-size: contain;
+  width: 30px;
+  height: 30px;
 }
 
 .kurage-infos {
@@ -217,17 +218,13 @@ html, body {
   margin-top: 712px;
 }
 
-#hamon{
+#aaa {
   position: absolute;
   border-radius: 50%;
-  background-image:  radial-gradient( rgba(255, 255, 255, 0), rgb(255, 255, 255) );
+  width: 100px;
+  height: 100px;
+  margin-top: 123px;
+  margin-left: 100px;
+  background-color: azure;
 }
 /*# sourceMappingURL=style.css.map */
-#ab{
-  width: 20px;
-  height: 20px;
-  position: fixed;
-  background-color: #fff;
-  margin-left: 300px;
-  margin-top: 200px;
-}
