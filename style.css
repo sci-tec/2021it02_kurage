@@ -117,16 +117,15 @@
   width: 100%;
 }
 
-/* #layers #lAnime1 .container .img {
-  width: 100px; 
+#layers #lAnime1 .container .img {
   position: fixed;
-  top: 300px;
-  left: 300px;
-} */
+  transform-origin:left top;
+} 
 /* 作業中 */
 #layers #lAnime1 .container .img img {
   width: 100%;
-  position: fixed;
+  margin-top: -50%;
+  margin-left: -50%;
 }
 
 #layers #lBG {
