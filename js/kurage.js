@@ -27,7 +27,6 @@ export let kurage= {
     //クラゲアニメーシ
     animate: function(){
         $("#kurage").attr("src", `images/jf/jf06_2/06_${this.counter}.png`);
-        // this.counter = (this.counter+1) % this.NUM_IMAGES;
         this.counter = (this.counter+3) % this.NUM_IMAGES;
         //泡アニメーション
        this.awa>-innerHeight&&this.is_awa?this.awa-=7:this.is_awa=false;
