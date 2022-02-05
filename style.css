@@ -166,19 +166,22 @@ html, body {
 }
 
 .container .img {
-  width: 100px;
   position: fixed;
+  -webkit-transform-origin: left top;
+          transform-origin: left top;
 }
 
 .container .img img {
   width: 100%;
+  margin-top: -50%;
+  margin-left: -50%;
 }
 
 .container #esaarea .esa {
   color: #fff;
   font-size: 25px;
   line-height: 1em;
-  background-image: url("/images/esa/esa3.png");
+  background-image: url("./images/esa/esa3.png");
   background-size: contain;
   width: 30px;
   height: 30px;

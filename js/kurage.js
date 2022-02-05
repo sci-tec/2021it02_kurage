@@ -18,11 +18,14 @@ export let kurage= {
     is_click: false,
     is_push: false,
     is_awa: false,
-    is_eat: false,
     is_hamon: false,
+    is_eat_x: false,
+    is_eat_y: false,
     size: 100,
     MAX_SIZE: 400,
-    
+    esa: 0,
+    esaArr: [],
+    manzoku: localStorage.getItem("manzoku"),
 
     //クラゲアニメーシ
     animate: function(){
@@ -59,34 +62,49 @@ export let kurage= {
             this.is_goal_y = true;
         }
         //クラゲが回転停止したら実行
-        if(!this.is_teisi || this.is_eat) {
-            if(Math.abs(this.goal_x - this.kurage_x) > 30) {
+        if(!this.is_teisi || this.esaArr.length>0) {
+            if(Math.abs(this.goal_x - this.kurage_x) > 3) {
                 //イーズアウト計算
                 this.sx = ( this.goal_x - this.kurage_x ) / 100;
-                if(this.is_eat){this.sx = ( this.goal_x - this.kurage_x ) / 100;}
-                this.kurage_x += this.sx;
+                this.is_eat_y = false;
+                if(this.sx<=1 && this.sx>0){
+                    this.sx = 1;
+                }else if(this.sx>=-1 && this.sx<0){
+                    this.sx = -1;
+                }
+                
+            this.kurage_x += this.sx;
             } else {
+                this.is_eat_x = true;
                 this.is_goal_x = true;
             }
         
-            if(Math.abs(this.goal_y - this.kurage_y) > 30) {
+            if(Math.abs(this.goal_y - this.kurage_y) > 3) {
                 //イーズアウト計算
-                this.sy = ( this.goal_y - this.kurage_y ) / 70;
-                if(this.is_eat){this.sy = ( this.goal_y - this.kurage_y ) / 100;}
+                this.sy = ( this.goal_y - this.kurage_y ) / 100;
+                this.is_eat_x = false;
+                    if(this.sy<=1 && this.sy>0){
+                        this.sy = 1;
+                    }else if(this.sy>=-1 && this.sy<0){
+                        this.sy = -1;
+                    }
+                    
                 this.kurage_y += this.sy;
             } else {
+                this.is_eat_y = true;
                 this.is_goal_y = true;
             }    
-            // if(this.is_eat&&(($('#ab').offset().left-30)<=this.kurage_x&&this.kurage_x<=($('#ab').offset().left+30))&&(($('#ab').offset().top-30)<=this.kurage_y&&this.kurage_y<=($('#ab').offset().top+30))){
-            //     $('#ab').remove();
-            //     this.is_eat = false;
-            //     this.is_goal_x = true;
-            //     this.is_goal_y = true;
-            // }
+            
         }
         //クラゲがゴール位置についたら実行
         if( this.is_goal_x && this.is_goal_y ) {
-            // console.log(this.kurage_x,this.goal_y);
+            if(this.is_eat_x&&this.is_eat_y&&this.esaArr.length>0){
+                localStorage.setItem("manzoku",Number(this.manzoku)+34560);
+                this.manzoku = localStorage.getItem("manzoku");
+                console.log("esa");
+                this.is_click = false;
+                this.esaArr.splice(0, 1);
+            }
             this.is_push = false;
             this.is_teisi = true;
             this.is_goal_x = false;
