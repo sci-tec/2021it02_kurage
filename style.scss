@@ -20,13 +20,12 @@ html, body {
     height: 100%;
     width: 100%;
     .img {
-        width: 100px;
-        // background-color: #0003;
         position: fixed;
-        
+        transform-origin: left top;
         img {
             width: 100%;
-            
+            margin-top: -50%;
+            margin-left: -50%;
         }
     }
     #esaarea {
